@@ -23,13 +23,23 @@ function toggleDoor() {
         viewBox="0 0 200 400"
         xmlns="http://www.w3.org/2000/svg"
       >
+      <defs>
+        <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f5f5f5"/>
+          <stop offset="20%" stop-color="#d6d6d6"/>
+          <stop offset="40%" stop-color="#bfbfbf"/>
+          <stop offset="60%" stop-color="#e0e0e0"/>
+          <stop offset="80%" stop-color="#c8c8c8"/>
+          <stop offset="100%" stop-color="#f5f5f5"/>
+        </linearGradient>
+      </defs>
+      
         <!-- Door rectangle -->
         <rect 
           x="10" y="10" 
           width="180" height="380" 
           rx="10"
-          fill="#d1d5db"
-          stroke="none"
+           fill="url(#metal)"
         />
 
         <!-- Ventilation slots -->
@@ -63,17 +73,32 @@ function toggleDoor() {
 </template>
 
 <style scoped>
-/* Border animations */
-@keyframes pulse-red {
-  0% { border-color: red; }
-  50% { border-color: black; }
-  100% { border-color: red; }
-}
-
-@keyframes pulse-blue {
-  0% { border-color: #1d4ed8; }
-  50% { border-color: black; }
-  100% { border-color: #1d4ed8; }
+/* LED strip flowing animation */
+@keyframes led-flow {
+  0% {
+    border-image-source: linear-gradient(
+      90deg,
+      var(--led-color),
+      black,
+      var(--led-color)
+    );
+  }
+  50% {
+    border-image-source: linear-gradient(
+      90deg,
+      black,
+      var(--led-color),
+      black
+    );
+  }
+  100% {
+    border-image-source: linear-gradient(
+      90deg,
+      var(--led-color),
+      black,
+      var(--led-color)
+    );
+  }
 }
 
 .door-wrapper {
@@ -86,32 +111,33 @@ function toggleDoor() {
   width: 160px;
   height: 320px;
   background: #7c3aed;
-  border: 6px solid red;
-  border-radius: 10px;
+  border-width: 6px;
+  border-style: solid;
+  border-radius: 12px;
   cursor: pointer;
-  transition: transform 0.5s ease;
-  transform-origin: left center;
-  animation: pulse-red 1.2s infinite ease-in-out;
   overflow: hidden;
+
+  /* LED strip border */
+  --led-color: red;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(90deg, red, black);
+  animation: led-flow 1.2s linear infinite;
+
+  /* Door movement */
+  transform-origin: left center;
+  transition: transform 0.6s ease;
 }
 
 .door.open {
   background: #22c55e;
-  border-color: #1d4ed8;
-  transform: rotateY(-55deg);
-  animation: pulse-blue 1.2s infinite ease-in-out;
+
+  /* LED strip turns blue */
+  --led-color: #1d4ed8;
+  border-image-source: linear-gradient(90deg, #1d4ed8, black);
+  animation: led-flow 1.2s linear infinite;
+
+  /* Door slides + rotates left */
+  transform: translateX(-40px) rotateY(-35deg);
 }
 
-.door-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.label {
-  margin-top: 10px;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: white;
-}
 </style>
