@@ -1,110 +1,227 @@
 <template>
-  <div class="locker-wrapper">
-    <div
-      class="locker-door"
-      :class="{
-        'locker-door--closed': isClosed,
-        'locker-door--open': !isClosed
-      }"
-      @click="toggleDoor"
-    >
-      <div class="locker-status">
-      
-        <span :class="isClosed ? 'status-closed' : 'status-open'">
-          {{ isClosed ? 'click to Open' : 'OPEN' }}
-        </span>
-      </div>
+  <div class="door-wrapper">
     
-      
+    <!-- ?? Fondo interior que aparece cuando la puerta se abre -->
+    <div class="interior"></div>
+
+    <!-- Puerta 3D -->
+    <div class="door" :class="{ open: isOpen }" @click="toggleDoor">
+      <!-- Rejilla superior -->
+  <div class="vent">
+    <div class="slot"></div>
+    <div class="slot"></div>
+    <div class="slot"></div>
+  </div>
+  
+    <!-- Placa de texto -->
+  <div class="text-plate">
+  <span class="text-plate-label">CLICK TO OPEN</span>
+  </div>
+
+  <!-- Manija -->
+  <div class="handle">
+    <div class="handle-bar"></div>
+    <div class="lock"></div>
+  </div>
+
+  <!-- Textura metálica -->
+  <div class="metal-texture"></div>
+
+  <!-- Brillo -->
+  <div class="shine"></div>
     </div>
 
-    
   </div>
+  
+
+
 </template>
 
-<script setup>
-import { ref } from 'vue'
-
-const isClosed = ref(true)
-
-const toggleDoor = () => {
-  isClosed.value = !isClosed.value
+<script>
+export default {
+  data() {
+    return {
+      isOpen: false
+    }
+  },
+  methods: {
+    toggleDoor() {
+      this.isOpen = !this.isOpen
+    }
+  }
 }
 </script>
-
 <style scoped>
-.locker-wrapper {
-  display: inline-flex;
+.door-wrapper {
+  width: 260px;
+  height: 420px;
+  position: relative;
+  perspective: 1200px;
+}
+
+/* ?? Fondo interior */
+.interior {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #4a4a4a, #2a2a2a);
+  border-radius: 14px;
+  border: 2px solid #666;
+  z-index: 1; /* Detrás de la puerta */
+}
+
+/* Puerta 3D */
+.door {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #3a3a3a, #144843);
+  border-radius: 14px;
+  border: 2px solid #0f140f;
+  transform-origin: left center;
+  transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1),
+              box-shadow 0.6s ease;
+  z-index: 2; /* Encima del fondo */
+  overflow: hidden;
+}
+
+/* ?? Animación de apertura 3D */
+.door.open {
+  transform: rotateY(-70deg);
+  box-shadow: 40px 0px 60px rgba(0, 255, 255, 0.4);
+}/* Textura metálica */
+.metal-texture {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.06) 0px,
+    rgba(255,255,255,0.06) 2px,
+    rgba(0,0,0,0.1) 4px
+  );
+  pointer-events: none;
+}
+
+
+/* Brillo dinámico */
+.shine {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,0.25) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  animation: sweep 2.3s infinite ease-in-out;
+}
+
+@keyframes sweep {
+  0% { left: -120%; }
+  60% { left: 140%; }
+  100% { left: 140%; }
+}
+
+.vent {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  width: 70%;
+  height: 60px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 5;
+}
+
+.slot {
+  height: 10px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #000000aa, #00000055);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+}
+/* Manija delgada del color de las ranuras */
+.handle {
+  position: absolute;
+  right: 25px;
+  top: 150px;
+  width: 22px;   /* ?? Más delgada */
+  height: 120px;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  z-index: 6;
 }
 
-/* Outer door frame */
-.locker-door {
-  width: 160px;
-  height: 120px;
-  border-radius: 6px;
-  border: 4px solid transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition:
-    border-color 0.25s ease,
-    box-shadow 0.25s ease,
-    transform 0.15s ease;
-  background: rgba(255, 255, 255, 0.02);
-}
+.handle-bar {
+  width: 100%;
+  height: 80px;
 
-/* Closed = red border */
-.locker-door--closed {
-  border-color: #4080ff;
-  box-shadow: 0 0 12px rgba(229, 57, 53, 0.6);
-}
+  /* ?? Mismo color que las ranuras */
+  background: linear-gradient(180deg, #000000aa, #00000055);
 
-/* Open = green border */
-.locker-door--open {
-  border-color: #43a047;
-  box-shadow: 0 0 12px rgba(67, 160, 71, 0.6);
-}
-
-.locker-door:active {
-  transform: scale(0.97);
-}
-
-/* Clear middle area */
-.locker-center {
-  width: 80%;
-  height: 70%;
-  background: rgba(255, 255, 255, 0.02);
   border-radius: 4px;
+  box-shadow:
+    inset 0 2px 4px rgba(0,0,0,0.6),
+    0 1px 2px rgba(0,0,0,0.4);
+}
+
+/* Cerradura */
+.lock {
+  margin-top: 10px;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #e0e0e0, #8a8a8a);
+  border-radius: 50%;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+}
+
+.lock {
+  margin-top: 10px;
+  width: 26px;
+  height: 26px;
+  background: radial-gradient(circle, #e0e0e0, #8a8a8a);
+  border-radius: 50%;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+}
+/* Placa decorativa con fondo transparente */
+.text-plate {
+  position: absolute;
+  top: 95px; /* Debajo de las ranuras */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 45px;
+
+  background: transparent; /* ?? Fondo transparente */
+  border-radius: px;
+  border: 2px solid #6b6b6b; /* Borde metálico */
+
+  box-shadow:
+    inset 0 0 6px rgba(0,0,0,0.4), /* Sombra interna */
+    0 2px 4px rgba(0,0,0,0.4);     /* Sombra externa */
+
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+
+  z-index: 7;
 }
 
-/* Code text in the middle */
-.locker-code {
-  color: #4080ff;
-  font-weight: 600;
-  font-size: 1.2rem;
-  letter-spacing: 0.08em;
+/* Texto en relieve */
+.text-plate-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #a7a7a7;
+  text-shadow:
+    0 1px 0 #ffffff,
+    0 2px 2px rgba(0,0,0,0.4);
+  letter-spacing: 1px;
 }
 
-/* Status text */
-.locker-status {
-  font-size: 0.9rem;
-}
 
-.status-closed {
-  color: #4080ff;
-  font-weight: 600;
-}
 
-.status-open {
-  color: #43a047;
-  font-weight: 600;
-}
 </style>
