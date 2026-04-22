@@ -1,4 +1,5 @@
 <template>
+ <div class="page-center">
   <div class="door-wrapper">
     
     <!-- ?? Fondo interior que aparece cuando la puerta se abre -->
@@ -31,6 +32,7 @@
   <div class="shine"></div>
     </div>
 
+  </div>
   </div>
   
 
@@ -222,6 +224,13 @@ export default {
   letter-spacing: 1px;
 }
 
+.page-center {
+  width: 100vw;
+  height: 100vh;
 
+  display: flex;
+  justify-content: center;   /* Centra horizontal */
+  align-items: center;       /* Centra vertical */
+}
 
 </style>
