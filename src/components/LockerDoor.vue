@@ -1,41 +1,41 @@
 <template>
- <div class="page-center">
-  <div class="door-wrapper">
-    
-    <!-- ?? Fondo interior que aparece cuando la puerta se abre -->
-    <div class="interior"></div>
-
-    <!-- Puerta 3D -->
-    <div class="door" :class="{ open: isOpen }" @click="toggleDoor">
-      <!-- Rejilla superior -->
-  <div class="vent">
-    <div class="slot"></div>
-    <div class="slot"></div>
-    <div class="slot"></div>
-  </div>
   
-    <!-- Placa de texto -->
-  <div class="text-plate">
-  <span class="text-plate-label">CLICK TO OPEN</span>
-  </div>
+    <div class="door-wrapper">
+      
+      <!-- Fondo interior que aparece cuando la puerta se abre -->
+      <div class="interior"></div>
 
-  <!-- Manija -->
-  <div class="handle">
-    <div class="handle-bar"></div>
-    <div class="lock"></div>
-  </div>
+      <!-- Puerta 3D -->
+      <div class="door" :class="{ open: isOpen }" @click="toggleDoor">
 
-  <!-- Textura metálica -->
-  <div class="metal-texture"></div>
+        <!-- Rejilla superior -->
+        <div class="vent">
+          <div class="slot"></div>
+          <div class="slot"></div>
+          <div class="slot"></div>
+        </div>
 
-  <!-- Brillo -->
-  <div class="shine"></div>
+        <!-- Placa de texto -->
+        <div class="text-plate">
+          <span class="text-plate-label">
+            {{ isOpen ? 'LOCKER OPENED' : 'OPEN YOUR LOCKER' }}
+          </span>
+        </div>
+
+        <!-- Manija -->
+        <div class="handle">
+          <div class="handle-bar"></div>
+          <div class="lock"></div>
+        </div>
+
+        <!-- Textura metálica -->
+        <div class="metal-texture"></div>
+
+        <!-- Brillo -->
+        <div class="shine"></div>
+
+      </div>
     </div>
-
-  </div>
-  </div>
-  
-
 
 </template>
 
@@ -53,6 +53,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .door-wrapper {
   width: 260px;
@@ -61,14 +62,14 @@ export default {
   perspective: 1200px;
 }
 
-/* ?? Fondo interior */
+/* Fondo interior */
 .interior {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, #4a4a4a, #2a2a2a);
   border-radius: 14px;
   border: 2px solid #666;
-  z-index: 1; /* Detrás de la puerta */
+  z-index: 1;
 }
 
 /* Puerta 3D */
@@ -79,17 +80,20 @@ export default {
   border-radius: 14px;
   border: 2px solid #0f140f;
   transform-origin: left center;
-  transition: transform 1s cubic-bezier(0.25, 0.8, 0.25, 1),
-              box-shadow 0.6s ease;
-  z-index: 2; /* Encima del fondo */
+  transition: 
+    transform 1s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.6s ease;
+  z-index: 2;
   overflow: hidden;
 }
 
-/* ?? Animación de apertura 3D */
+/* Animación de apertura 3D */
 .door.open {
   transform: rotateY(-70deg);
   box-shadow: 40px 0px 60px rgba(0, 255, 255, 0.4);
-}/* Textura metálica */
+}
+
+/* Textura metálica */
 .metal-texture {
   position: absolute;
   inset: 0;
@@ -101,7 +105,6 @@ export default {
   );
   pointer-events: none;
 }
-
 
 /* Brillo dinámico */
 .shine {
@@ -126,6 +129,7 @@ export default {
   100% { left: 140%; }
 }
 
+/* Rejilla superior */
 .vent {
   position: absolute;
   top: 20px;
@@ -145,12 +149,13 @@ export default {
   background: linear-gradient(180deg, #000000aa, #00000055);
   box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
 }
-/* Manija delgada del color de las ranuras */
+
+/* Manija */
 .handle {
   position: absolute;
   right: 25px;
   top: 150px;
-  width: 22px;   /* ?? Más delgada */
+  width: 22px;
   height: 120px;
   display: flex;
   flex-direction: column;
@@ -161,10 +166,7 @@ export default {
 .handle-bar {
   width: 100%;
   height: 80px;
-
-  /* ?? Mismo color que las ranuras */
   background: linear-gradient(180deg, #000000aa, #00000055);
-
   border-radius: 4px;
   box-shadow:
     inset 0 2px 4px rgba(0,0,0,0.6),
@@ -174,42 +176,30 @@ export default {
 /* Cerradura */
 .lock {
   margin-top: 10px;
-  width: 20px;
-  height: 20px;
-  background: radial-gradient(circle, #e0e0e0, #8a8a8a);
-  border-radius: 50%;
-  box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
-}
-
-.lock {
-  margin-top: 10px;
   width: 26px;
   height: 26px;
   background: radial-gradient(circle, #e0e0e0, #8a8a8a);
   border-radius: 50%;
   box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
 }
-/* Placa decorativa con fondo transparente */
+
+/* Placa decorativa */
 .text-plate {
   position: absolute;
-  top: 95px; /* Debajo de las ranuras */
+  top: 95px;
   left: 50%;
   transform: translateX(-50%);
   width: 160px;
   height: 45px;
-
-  background: transparent; /* ?? Fondo transparente */
-  border-radius: px;
-  border: 2px solid #6b6b6b; /* Borde metálico */
-
+  background: transparent;
+  border-radius: 6px;
+  border: 2px solid #6b6b6b;
   box-shadow:
-    inset 0 0 6px rgba(0,0,0,0.4), /* Sombra interna */
-    0 2px 4px rgba(0,0,0,0.4);     /* Sombra externa */
-
+    inset 0 0 6px rgba(0,0,0,0.4),
+    0 2px 4px rgba(0,0,0,0.4);
   display: flex;
   justify-content: center;
   align-items: center;
-
   z-index: 7;
 }
 
@@ -224,13 +214,26 @@ export default {
   letter-spacing: 1px;
 }
 
-.page-center {
-  width: 100vw;
-  height: 100vh;
 
-  display: flex;
-  justify-content: center;   /* Centra horizontal */
-  align-items: center;       /* Centra vertical */
+/* Fondo interior profundo */
+.interior {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  z-index: 1;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(0,0,0,0.0) 0%,
+      rgba(0,0,0,0.35) 70%,
+      rgba(0,0,0,0.55) 100%
+    ),
+    linear-gradient(180deg, #3d3d3d, #1f1f1f);
+  box-shadow:
+    inset 0 0 40px rgba(0,0,0,0.6),
+    inset 0 0 80px rgba(0,0,0,0.4),
+    inset 0 0 120px rgba(0,0,0,0.3);
 }
+
 
 </style>

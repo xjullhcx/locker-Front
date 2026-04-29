@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import Front from './components/Front.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import HamburgerMenu  from './components/Menu.vue'
 import LockerDoor from './components/LockerDoor.vue'
 import socket from "./socket";
 
@@ -19,14 +17,15 @@ socket.on("message", (msg) => {
 
 <template>
   <header>
-   
+    <HamburgerMenu />
   </header>
 
   <main>
-    <Front />
     <LockerDoor />
   </main>
+  
 </template>
+
 
 <style scoped>
 header {
@@ -36,6 +35,17 @@ header {
 .logo {
   display: block;
   margin: 0 auto 2rem;
+}
+
+
+main {
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;   /* Centrado horizontal */
+  align-items: flex-start;   /* Se pega arriba */
+  overflow: hidden;
+  padding-top: 80px;         /* Ajusta la distancia al header */
 }
 
 @media (min-width: 1024px) {
