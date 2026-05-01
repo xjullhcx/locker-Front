@@ -1,6 +1,7 @@
 <script setup lang="ts">
 //import HamburgerMenu  from './components/Menu.vue'
 import Header  from './components/Header.vue'
+import Footer  from './components/Footer.vue'
 import LockerDoor from './components/LockerDoor.vue'
 import socket from "./socket";
 
@@ -24,7 +25,7 @@ socket.on("message", (msg) => {
   <main>
     <LockerDoor />
   </main>
-  
+  <Footer/>
 </template>
 
 
@@ -47,6 +48,7 @@ main {
   align-items: flex-start;   /* Se pega arriba */
   overflow: hidden;
   padding-top: 80px;         /* Ajusta la distancia al header */
+  padding-bottom: 120px;     /* espacio para el footer metálico */
 }
 
 @media (min-width: 1024px) {

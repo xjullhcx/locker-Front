@@ -1,6 +1,6 @@
 <template>
   <header class="metal-plate">
-    <span class="title">Rent a Locker</span>
+    <span class="title">Smart Locker for Rent</span>
   </header>
 </template>
 
