@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import HamburgerMenu  from './components/Menu.vue'
+//import HamburgerMenu  from './components/Menu.vue'
+import Header  from './components/Header.vue'
 import LockerDoor from './components/LockerDoor.vue'
 import socket from "./socket";
 
@@ -17,7 +18,7 @@ socket.on("message", (msg) => {
 
 <template>
   <header>
-    <HamburgerMenu />
+    <Header />
   </header>
 
   <main>
