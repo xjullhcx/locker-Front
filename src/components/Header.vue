@@ -8,10 +8,9 @@
 .metal-plate {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
 
-  width: 460px;
+  width: 100%;        /* ?? FULL WIDTH */
   height: 90px;
 
   display: flex;
@@ -19,16 +18,16 @@
   align-items: center;
 
   background: linear-gradient(145deg, #3a3a3a, #1e1e1e);
-  border-radius: 10px;
+  border-radius: 0;   /* ?? SIN BORDES REDONDOS (estilo industrial) */
 
-  /* Textura metálica */
-  overflow: hidden;
   box-shadow:
     0 4px 10px rgba(0,0,0,0.6),
     inset 0 0 12px rgba(0,0,0,0.5);
+
+  overflow: hidden;
 }
 
-/* Textura de acero cepillado */
+/* ?? Textura metálica SIN HOLES */
 .metal-plate::before {
   content: "";
   position: absolute;
@@ -40,20 +39,6 @@
     rgba(0,0,0,0.15) 4px
   );
   opacity: 0.35;
-  pointer-events: none;
-}
-
-/* Tornillos metálicos */
-.metal-plate::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle, #000 20%, #555 60%, #222 100%) 10px 10px / 20px 20px no-repeat,
-    radial-gradient(circle, #000 20%, #555 60%, #222 100%) calc(100% - 10px) 10px / 20px 20px no-repeat,
-    radial-gradient(circle, #000 20%, #555 60%, #222 100%) 10px calc(100% - 10px) / 20px 20px no-repeat,
-    radial-gradient(circle, #000 20%, #555 60%, #222 100%) calc(100% - 10px) calc(100% - 10px) / 20px 20px no-repeat;
-  opacity: 0.8;
   pointer-events: none;
 }
 

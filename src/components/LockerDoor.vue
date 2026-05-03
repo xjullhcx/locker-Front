@@ -1,63 +1,106 @@
 <template>
-  
-    <div class="door-wrapper">
-      
-      <!-- Fondo interior que aparece cuando la puerta se abre -->
-      <div class="interior"></div>
+  <div class="door-wrapper">
+    
+    <!-- Fondo interior -->
+    <div class="interior"></div>
 
-      <!-- Puerta 3D -->
-      <div class="door" :class="{ open: isOpen }" @click="toggleDoor">
+    <!-- Puerta 3D -->
+    <div class="door" :class="{ open: isOpen, error: isError }" @click="showCodeCard = true">
 
-        <!-- Rejilla superior -->
-        <div class="vent">
-          <div class="slot"></div>
-          <div class="slot"></div>
-          <div class="slot"></div>
-        </div>
 
-        <!-- Placa de texto -->
-        <div class="text-plate">
-          <span class="text-plate-label">
-            {{ isOpen ? 'LOCKER OPENED' : 'OPEN YOUR LOCKER' }}
-          </span>
-        </div>
-
-        <!-- Manija -->
-        <div class="handle">
-          <div class="handle-bar"></div>
-          <div class="lock"></div>
-        </div>
-
-        <!-- Textura metálica -->
-        <div class="metal-texture"></div>
-
-        <!-- Brillo -->
-        <div class="shine"></div>
-
+      <!-- Rejilla superior -->
+      <div class="vent">
+        <div class="slot"></div>
+        <div class="slot"></div>
+        <div class="slot"></div>
       </div>
+
+      <!-- Placa de texto -->
+      <div class="text-plate">
+    <span class="text-plate-label">
+      {{ isError ? 'INCORRECT CODE' : (isOpen ? 'LOCKER OPENED' : 'OPEN YOUR LOCKER') }}
+    </span>
+  </div>
+
+      <!-- Manija -->
+      <div class="handle">
+        <div class="handle-bar"></div>
+        <div class="lock"></div>
+      </div>
+
+      <!-- Textura metálica -->
+      <div class="metal-texture"></div>
+
+      <!-- Brillo -->
+      <div class="shine"></div>
+
     </div>
 
+    <!-- ?? V-CARD PARA INGRESAR CÓDIGO -->
+    <v-dialog v-model="showCodeCard" width="350">
+  <v-card class="pa-4 metal-card" elevation="16">
+    <v-card-title class="text-h6 text-center">
+      Enter your access code
+    </v-card-title>
+
+    <v-text-field
+      v-model="code"
+      label="Access code"
+      maxlength="6"
+      type="password"
+      variant="outlined"
+      color="cyan"
+      class="mt-2"
+    />
+
+     <v-card-actions class="d-flex justify-center mt-4">
+       <v-btn color="cyan" @click="validateCode">
+        Open
+       </v-btn>
+       <v-btn color="red" @click="showCodeCard = false">
+         Cancel
+       </v-btn>
+     </v-card-actions>
+   </v-card>
+ </v-dialog>
+
+
+  </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      isOpen: false
-    }
-  },
-  methods: {
-    toggleDoor() {
-      this.isOpen = !this.isOpen
+ data() {
+  return {
+    isOpen: false,
+    showCodeCard: false,
+    code: "",
+    isError: false
+  };
+},
+
+methods: {
+  validateCode() {
+    if (this.code === "123456") {
+      this.showCodeCard = false;
+      this.isOpen = true;
+      this.isError = false;   // quita error
+    } else {
+      this.isOpen = false;
+      this.isError = true;    // activa mensaje de error
+      // sin alert()
     }
   }
 }
+
+
+};
 </script>
 
 <style scoped>
 .door-wrapper {
-  width: 260px;
-  height: 420px;
+  width: 310px;
+  height: 510px;
   position: relative;
   perspective: 1200px;
 }
@@ -206,7 +249,7 @@ export default {
 /* Texto en relieve */
 .text-plate-label {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   color: #a7a7a7;
   text-shadow:
     0 1px 0 #ffffff,
@@ -233,6 +276,53 @@ export default {
     inset 0 0 40px rgba(0,0,0,0.6),
     inset 0 0 80px rgba(0,0,0,0.4),
     inset 0 0 120px rgba(0,0,0,0.3);
+}
+
+/* v card*/
+ .metal-card {
+  background: rgba(40, 40, 40, 0.35) !important; /* Transparente */
+  backdrop-filter: blur(6px); /* Efecto vidrio */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+
+  /* Textura metálica */
+  position: relative;
+  overflow: hidden;
+}
+
+.metal-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.08) 0px,
+    rgba(255,255,255,0.08) 2px,
+    rgba(0,0,0,0.15) 4px
+  );
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.metal-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,0.15) 50%,
+    transparent 100%
+  );
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+
+.door.error {
+  background: linear-gradient(160deg, #5a0000, #8a0000);
+  border: 2px solid #ff1a1a;
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
 }
 
 
