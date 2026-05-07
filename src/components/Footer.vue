@@ -1,7 +1,7 @@
 <template>
   <footer class="tiktok-footer">
     <button class="nav-btn">Rent a Locker</button>
-    <button class="nav-btn">Open Locker</button>
+    <button class="nav-btn">Open a Locker</button>
     <button class="nav-btn">Contact Us</button>
   </footer>
 </template>

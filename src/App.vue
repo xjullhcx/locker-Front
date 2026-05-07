@@ -50,7 +50,7 @@ main {
   justify-content: center;   /* Centrado horizontal */
   align-items: flex-start;   /* Se pega arriba */
   overflow: hidden;
-  padding-top: 180px;         /* Ajusta la distancia al header */
+  padding-top: 150px;         /* Ajusta la distancia al header */
   padding-bottom: 30px;     /* espacio para el footer metálico */
 }
 

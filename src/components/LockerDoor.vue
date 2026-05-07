@@ -18,7 +18,7 @@
       <!-- Placa de texto -->
       <div class="text-plate">
     <span class="text-plate-label">
-      {{ isError ? 'INCORRECT CODE' : (isOpen ? 'LOCKER OPENED' : 'OPEN YOUR LOCKER') }}
+      {{ isError ? 'INCORRECT CODE' : (isOpen ? 'LOCKER OPENED' : 'OPEN LOCKER') }}
     </span>
   </div>
 
@@ -28,7 +28,7 @@
         <div class="lock"></div>
       </div>
 
-      <!-- Textura metálica -->
+      <!-- Textura met?lica -->
       <div class="metal-texture"></div>
 
       <!-- Brillo -->
@@ -36,7 +36,7 @@
 
     </div>
 
-    <!-- ?? V-CARD PARA INGRESAR CÓDIGO -->
+    <!-- ?? V-CARD PARA INGRESAR C?DIGO -->
     <v-dialog v-model="showCodeCard" width="350">
   <v-card class="pa-4 metal-card" elevation="16">
     <v-card-title class="text-h6 text-center">
@@ -51,6 +51,7 @@
       variant="outlined"
       color="cyan"
       class="mt-2"
+      @keyup.enter="validateCode"
     />
 
      <v-card-actions class="d-flex justify-center mt-4">
@@ -90,6 +91,7 @@ methods: {
       this.isError = true;    // activa mensaje de error
       // sin alert()
     }
+     this.code = ""; // limpia
   }
 }
 
@@ -99,8 +101,8 @@ methods: {
 
 <style scoped>
 .door-wrapper {
-  width: 310px;
-  height: 510px;
+  width: 260px;
+  height: 480px;
   position: relative;
   perspective: 1200px;
 }
@@ -130,13 +132,13 @@ methods: {
   overflow: hidden;
 }
 
-/* Animación de apertura 3D */
+/* Animaci?n de apertura 3D */
 .door.open {
   transform: rotateY(-70deg);
   box-shadow: 40px 0px 60px rgba(0, 255, 255, 0.4);
 }
 
-/* Textura metálica */
+/* Textura met?lica */
 .metal-texture {
   position: absolute;
   inset: 0;
@@ -149,7 +151,7 @@ methods: {
   pointer-events: none;
 }
 
-/* Brillo dinámico */
+/* Brillo din?mico */
 .shine {
   position: absolute;
   top: 0;
@@ -285,7 +287,7 @@ methods: {
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 14px;
 
-  /* Textura metálica */
+  /* Textura met?lica */
   position: relative;
   overflow: hidden;
 }
