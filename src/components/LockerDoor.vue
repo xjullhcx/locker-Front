@@ -1,4 +1,5 @@
 <template>
+ <div class="locker-container">
   <div class="door-wrapper">
     
     <!-- Fondo interior -->
@@ -16,7 +17,7 @@
       </div>
 
       <!-- Placa de texto -->
-      <div class="text-plate">
+      <div class="text-plate" :class="{ error: isError }">
     <span class="text-plate-label">
       {{ isError ? 'INCORRECT CODE' : (isOpen ? 'LOCKER OPENED' : 'OPEN LOCKER') }}
     </span>
@@ -67,6 +68,7 @@
 
 
   </div>
+ </div> 
 </template>
 
 <script>
@@ -100,6 +102,15 @@ methods: {
 </script>
 
 <style scoped>
+
+/* NUEVO: baja el locker sin tocar App.vue */
+.locker-container {
+  margin-top: 150px; /* Ajusta la distancia hacia abajo */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .door-wrapper {
   width: 260px;
   height: 480px;
@@ -259,6 +270,21 @@ methods: {
   letter-spacing: 1px;
 }
 
+/* placa roja*/
+
+.text-plate.error {
+  border-color: #ff3b3b;
+  box-shadow:
+    inset 0 0 8px rgba(255,0,0,0.5),
+    0 2px 6px rgba(255,0,0,0.4);
+}
+
+.text-plate.error .text-plate-label {
+  color: #ff4d4d;
+  text-shadow:
+    0 1px 0 #ffffff,
+    0 2px 4px rgba(255,0,0,0.5);
+}
 
 /* Fondo interior profundo */
 .interior {

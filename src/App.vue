@@ -2,7 +2,7 @@
 //import HamburgerMenu  from './components/Menu.vue'
 import Header  from './components/Header.vue'
 import Footer  from './components/Footer.vue'
-import LockerDoor from './components/LockerDoor.vue'
+import HomeComponent from "./components/HomeComponent.vue";
 import socket from "./socket";
 
 socket.on("connect", () => {
@@ -23,7 +23,8 @@ socket.on("message", (msg) => {
   </header>
 
   <main>
-    <LockerDoor />
+    <router-view />
+    
   </main>
   
   <Footer/>
@@ -42,16 +43,16 @@ header {
   margin: 0 auto 2rem;
 }
 
-
+/*
 main {
   width:100%;
   height: 100vh;
   display: flex;
   justify-content: center;   /* Centrado horizontal */
-  align-items: flex-start;   /* Se pega arriba */
-  overflow: hidden;
-  padding-top: 150px;         /* Ajusta la distancia al header */
-  padding-bottom: 30px;     /* espacio para el footer metálico */
-}
+ /* align-items: flex-start;   /* Se pega arriba */
+  /*overflow: hidden;
+  padding-top: 50px;         /* Ajusta la distancia al header */
+ /* padding-bottom: 30px;     /* espacio para el footer metálico */
+/*}*/
 
 </style>

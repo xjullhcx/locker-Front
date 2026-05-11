@@ -1,10 +1,28 @@
 <template>
   <footer class="tiktok-footer">
-    <button class="nav-btn">Rent a Locker</button>
-    <button class="nav-btn">Open a Locker</button>
-    <button class="nav-btn">Contact Us</button>
+    <button class="nav-btn" @click="goRent">Rent a Locker</button>
+    <button class="nav-btn" @click="goOpen">Open a Locker</button>
+    <button class="nav-btn" @click="goContact">Contact Us</button>
   </footer>
 </template>
+
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+function goRent() {
+  router.push('/')
+}
+
+function goOpen() {
+  router.push('/locker-door')
+}
+
+function goContact() {
+  router.push('/contact')
+}
+</script>
 
 <style scoped>
 /* Barra completa estilo TikTok */
