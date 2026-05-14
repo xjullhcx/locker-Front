@@ -1,112 +1,106 @@
 <template>
-  <div class="info-wrapper">
-    <div class="info-content">
+  <div class="page-wrapper">
+    <div class="page-content">
 
-      <h1 class="title">Welcome to your Rent Locker System</h1>
-       
+      <!-- Título -->
+      <h1 class="title">Welcome to our Smart Locker Rental System</h1>
 
-      <!-- Imagen principal: personas ahorrando tiempo -->
+      <!-- Imagen principal -->
       <div class="hero-image">
-        <img
-          src="https://tse3.mm.bing.net/th/id/OIP.FZ79V-h3wwCE1yOp1Dm9_QHaE8?r=0&cb=thfc1&rs=1&pid=ImgDetMain&o=7&rm=3"
-          alt="People saving time using smart systems"
-        />
+        <img :src="Lockermain" alt="Logicore Automation Mural" />
       </div>
-      <h1 class="title">contac us: logicoreautomation@gmail.com</h1>
-       
-      <p class="description">
-        Save time, reduce waiting lines, and improve efficiency with our smart locker system.
-      </p>
 
-      <div class="gallery">
-
-        <img
-          class="gallery-img"
-          src="https://i.pinimg.com/originals/45/29/78/45297865e9960ba4ef103bb1650b7ad2.jpg"
-          alt="Students using lockers"
-        />
-        <img
-          class="gallery-img"
-          src="https://media.istockphoto.com/id/513948120/photo/construction-worker-in-the-locker-room.jpg?s=170667a&w=0&k=20&c=mufMYAjLWr5YPx99aO027vwm7z95LgnEwS3g-lqWBfU="
-          alt="Employees using lockers"
-        />
+      <!-- Botones -->
+      <div class="actions">
+        <button class="btn">Rent a Locker</button>
+        <button class="btn">Open a Locker</button>
+        <button class="btn">Contact Us</button>
       </div>
 
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-// No logic needed yet
+<script>
+import Lockermain from "@/assets/Lockermain.png";
+
+export default {
+  name: "LockerMainPage",
+  data() {
+    return {
+      Lockermain,
+    };
+  },
+};
 </script>
 
 <style scoped>
-.info-wrapper {
-  width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #1f1f1f, #3a3a3a);
+/* Toda la pantalla */
+.page-wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #343434;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 60px 20px;
+  align-items: center;
 }
 
-.info-content {
-  max-width: 900px;
-  text-align: center;
-  color: white;
+/* Contenido centrado */
+.page-content {
+  width: 100%;
+  max-width: 430px;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Títulos */
+/* Título */
 .title {
-  font-size: 38px;
-  font-weight: 900;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 26px;
+  font-weight: 800;
+  font-color: black;
+  text-align: center;
+  margin: 0;
 }
 
-.subtitle {
-  font-size: 22px;
-  opacity: 0.85;
-  margin-bottom: 30px;
+/* Imagen */
+.hero-image {
+  width: 100%;
+  height: 55%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Imagen principal */
 .hero-image img {
   width: 100%;
-  max-width: 780px;
-  border-radius: 14px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-  margin-bottom: 25px;
+  height: 100%;
   object-fit: cover;
+  border-radius: 12px;
 }
 
-/* Texto descriptivo */
-.description {
-  font-size: 18px;
-  opacity: 0.9;
-  margin-bottom: 40px;
-}
-
-/* Galería */
-.gallery {
+/* Botones */
+.actions {
+  width: 100%;
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.gallery-img {
-  width: 260px;
-  height: 180px;
-  object-fit: cover;
+.btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 700;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-  transition: transform 0.3s ease;
-}
-
-.gallery-img:hover {
-  transform: scale(1.05);
+  border: none;
+  background: #1a1a1a;
+  color: white;
 }
 </style>
