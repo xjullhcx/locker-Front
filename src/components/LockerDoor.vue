@@ -287,4 +287,54 @@ export default {
   opacity: 0.35;
   pointer-events: none;
 }
+
+
+.vent {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 3;
+}
+
+.slot {
+  height: 10px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #1a1a1a, #333);
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.6);
+}
+.handle {
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 4;
+}
+
+.handle-bar {
+  width: 14px;
+  height: 70px;
+  background: linear-gradient(180deg, #d0d0d0, #8a8a8a);
+  border-radius: 6px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+.lock {
+  margin-top: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #e0e0e0, #7a7a7a);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+}
+
 </style>

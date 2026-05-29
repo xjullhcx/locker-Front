@@ -20,7 +20,7 @@ function goOpen() {
 }
 
 function goContact() {
-  router.push('/contact')
+  router.push('/ContacUS')
 }
 </script>
 
